@@ -18,7 +18,7 @@ import com.devsuperior.dscommerce.services.exceptions.ResourceNotFoundExceotion;
 import javax.persistence.EntityNotFoundException;
 
 @Service
-public class ProductServices {
+public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;

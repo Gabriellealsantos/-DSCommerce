@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.dscommerce.dto.ProductDTO;
-import com.devsuperior.dscommerce.services.ProductServices;
+import com.devsuperior.dscommerce.services.ProductService;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/products")
-public class ProductControllers {
+public class ProductController {
 
     @Autowired
-    private ProductServices service;
+    private ProductService service;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
