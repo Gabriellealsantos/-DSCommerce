@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.dscommerce.dto.CategoryDTO;
 import com.devsuperior.dscommerce.dto.ProductDTO;
 import com.devsuperior.dscommerce.dto.ProductMinDTO;
+import com.devsuperior.dscommerce.entities.Category;
 import com.devsuperior.dscommerce.entities.Product;
 import com.devsuperior.dscommerce.repositories.ProductRepository;
 import com.devsuperior.dscommerce.services.exceptions.DatabaseException;
@@ -26,8 +28,8 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow( 
-            () -> new ResourceNotFoundExceotion("Recurso não encontrado"));
+        Product product = productRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundExceotion("Recurso não encontrado"));
         return new ProductDTO(product);
     }
 
@@ -52,26 +54,22 @@ public class ProductService {
             copyDtoToEntity(dto, entity);
             entity = productRepository.save(entity);
             return new ProductDTO(entity);
-        } 
-        catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundExceotion("Recurso não encontrado");
         }
 
-    
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
         try {
             productRepository.deleteById(id);
-        }
-        catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundExceotion("Recurso não encontrado");
-        }
-        catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Falha de integridade referencial");
         }
-        
+
     }
 
     private void copyDtoToEntity(ProductDTO dto, Product entity) {
@@ -79,6 +77,12 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+        entity.getCategories().clear();
+        for (CategoryDTO catDTO : dto.getCategories()) {
+            Category cat = new Category();
+            cat.setId(catDTO.getId());
+            entity.getCategories().add(cat);
+        }
     }
-    
+
 }
