@@ -1,0 +1,74 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
+import ButtonNextPage from '../../../components/ButtonNextPage';
+import CatalogCard from '../../../components/CatalogCard';
+import SearchBar from '../../../components/SearchBar';
+import { ProductDTO } from '../../../models/product';
+import * as productService from '../../../services/produc-service';
+import './styles.css';
+
+type QuaryParams = {
+    page: number;
+    name: string;
+}
+
+export default function Catalog() {
+
+    const [isLastPage, setIsLastPage] = useState(false);
+
+    const [products, setProducts] = useState<ProductDTO[]>([]);
+
+    const [quaryParams, setQuaryParams] = useState<QuaryParams>({
+        page: 0,
+        name: ""
+    });
+
+    useEffect(() => {
+        productService.findPageResquest(quaryParams.page, quaryParams.name)
+            .then(response => {
+                const nextPage = response.data.content;
+                setProducts(products.concat(nextPage));
+                setIsLastPage(response.data.last)
+            });
+    }, [quaryParams]);
+
+    function handleSearch(searchText: string) {
+        setProducts([]);
+        setQuaryParams({ ...quaryParams, page: 0, name: searchText })
+    }
+
+    function handleNextPageClick() {
+        setQuaryParams({ ...quaryParams, page: quaryParams.page + 1 });
+    }
+
+    return (
+
+        <main>
+            <section id="catalog-section" className="dsc-container">
+
+                <SearchBar onSearch={handleSearch} />
+
+                <div className="dsc-catalog-cards dsc-mb20 dsc-mt20">
+
+                    {
+                        products.map(product => <CatalogCard key={product.id} product={product} />)
+                    }
+
+
+                </div>
+
+                {
+                    !isLastPage &&
+                    <div onClick={handleNextPageClick}>
+                        <ButtonNextPage />
+                    </div>
+
+                }
+
+
+
+            </section>
+        </main>
+
+    );
+}
