@@ -21,7 +21,7 @@ export default function App() {
   return (
     <ContextCartCount.Provider value={{ contextCartCount, setContextCartCount }}>
       <HistoryRouter history={history}>
-        
+
         <Routes>
           <Route path="/" element={<ClientHome />}>
             <Route index element={<Catalog />} />
@@ -31,7 +31,7 @@ export default function App() {
             <Route path="login" element={<Login />} />
           </Route>
 
-          <Route path="/admin/" element={<PrivateRoute><Admin /></PrivateRoute>}>
+          <Route path="/admin/" element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>}>
             <Route index element={<AdminHome />} />
           </Route>
 
