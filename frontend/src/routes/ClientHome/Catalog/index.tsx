@@ -7,6 +7,7 @@ import { ProductDTO } from '../../../models/product';
 import * as productService from '../../../services/produc-service';
 import './styles.css';
 
+
 type QuaryParams = {
     page: number;
     name: string;
