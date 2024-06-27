@@ -12,8 +12,6 @@ export default function AdminHome() {
             .then(
                 response => {
                     setUser(response.data)
-                    console.log(response.data);
-
                 });
     }, [setUser])
 
