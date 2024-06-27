@@ -5,7 +5,7 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import ProductDetailsCard from '../../../components/ProductDetailsCard';
 import { ProductDTO } from '../../../models/product';
 import './styles.css';
-import * as productService from '../../../services/produc-service';
+import * as productService from '../../../services/product-service';
 import * as cartService from '../../../services/cart-service';
 import { ContextCartCount } from '../../../utils/context-cart';
 
