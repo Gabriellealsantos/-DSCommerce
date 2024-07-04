@@ -7,6 +7,7 @@ import * as productService from '../../../services/product-service';
 import { ProductDTO } from '../../../models/product';
 import SearchBar from '../../../components/SearchBar';
 import ButtonNextPage from '../../../components/ButtonNextPage';
+import DialogInfo from '../../../components/DialogInfo';
 
 type QuaryParams = {
     page: number;
@@ -15,10 +16,14 @@ type QuaryParams = {
 
 export default function ProductListing() {
 
+    const [dialogInfoData, setDialogInfoData] = useState({
+        visible: false,
+        message: "Operação com Sucesso!"
+    });
+
     const [isLastPage, setIsLastPage] = useState(false);
 
     const [products, setProducts] = useState<ProductDTO[]>([]);
-
 
     const [quaryParams, setQuaryParams] = useState<QuaryParams>({
         page: 0,
@@ -37,11 +42,19 @@ export default function ProductListing() {
 
     function handleSearch(searchText: string) {
         setProducts([]);
-        setQuaryParams({ ...quaryParams, page: 0, name: searchText })
+        setQuaryParams({ ...quaryParams, page: 0, name: searchText });
     }
 
     function handleNextPageClick() {
         setQuaryParams({ ...quaryParams, page: quaryParams.page + 1 });
+    }
+
+    function handleDialogInfoClose() {
+        setDialogInfoData({...dialogInfoData, visible: false});
+    }
+
+    function handleDeleteClick() {
+        setDialogInfoData({...dialogInfoData, visible: true});
     }
 
     return (
@@ -76,7 +89,7 @@ export default function ProductListing() {
                                     <td className="dsc-tb768">{product.price}</td>
                                     <td className="dsc-txt-left">{product.name}</td>
                                     <td><img className="dsc-product-listing-btn" src={editIcon} alt="Editar" /></td>
-                                    <td><img className="dsc-product-listing-btn" src={deleteIcon} alt="Deletar" /></td>
+                                    <td><img onClick={handleDeleteClick} className="dsc-product-listing-btn" src={deleteIcon} alt="Deletar" /></td>
                                 </tr>
 
                             ))
@@ -92,6 +105,13 @@ export default function ProductListing() {
 
                 }
             </section>
+            {
+                dialogInfoData.visible &&
+                <DialogInfo message={dialogInfoData.message} 
+                onDialogClose={handleDialogInfoClose}
+                />
+            }
+
         </main>
     )
 }
