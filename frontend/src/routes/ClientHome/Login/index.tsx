@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import './styles.css'
 import { useContext, useState } from 'react';
 import * as authService from '../../../services/auth-service'
-import './styles.css'
 import { useNavigate } from 'react-router-dom';
 import { ContextToken } from '../../../utils/context-token';
 import FormInput from '../../../components/FormInput';
+import * as forms from '../../../utils/forms';
 
 export default function Login() {
 
@@ -35,7 +36,7 @@ export default function Login() {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        authService.loginRequest({ username: formData.username.value, password: formData.password.value })
+        authService.loginRequest(forms.toValues(formData))
             .then(response => {
                 authService.saveAccessToken(response.data.access_token);
                 setContextTokenPayload(authService.getAccessTokenPayload());
@@ -47,10 +48,7 @@ export default function Login() {
     }
 
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const value = event.target.value;
-        const name = event.target.name;
-        setFormData({ ...formData, [name]: { ...formData[name], value: value } })
-
+        setFormData(forms.update(formData, event.target.name, event.target.value));
     }
 
     return (
