@@ -38,3 +38,7 @@ export function validate(inputs: any, name: string) {
 
     return { ...inputs, [name]: { ...inputs[name], invalid: isInValid.toString() } };
 }
+
+export function toDirty(inputs: any, name: string) {
+    return { ...inputs, [name]: {...inputs[name], dirty: "true"} };
+}

@@ -236,8 +236,12 @@ nav a {
   border: 1px solid var(--dsc-color-card-border);
 }
 
-.dsc-form-control[data-invalid="true"] {
+.dsc-form-control[data-dirty="true"][data-invalid="true"] {
   border: 1px solid var(--dsc-color-error);
+}
+
+.dsc-form-control[data-dirty="true"][data-invalid="true"]~div {
+  display: unset;
 }
 
 .dsc-form-control:focus {
@@ -255,9 +259,7 @@ nav a {
   display: none;
 }
 
-.dsc-form-control[data-invalid="true"]~div {
-  display: unset;
-}
+
 
 .dsc-select:invalid {
   color: var(--dsc-color-font-placeholder);
