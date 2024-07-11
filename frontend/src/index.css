@@ -236,6 +236,10 @@ nav a {
   border: 1px solid var(--dsc-color-card-border);
 }
 
+.dsc-form-control[data-invalid="true"] {
+  border: 1px solid var(--dsc-color-error);
+}
+
 .dsc-form-control:focus {
   outline: none;
 }
@@ -244,14 +248,15 @@ nav a {
   color: var(--dsc-color-font-placeholder);
 }
 
-.dsc-input-error {
-  border: 1px solid var(--dsc-color-error);
-}
-
 .dsc-form-error {
   color: var(--dsc-color-error);
   font-size: 12px;
   padding-left: 4px;
+  display: none;
+}
+
+.dsc-form-control[data-invalid="true"]~div {
+  display: unset;
 }
 
 .dsc-select:invalid {
