@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import './styles.css'
 import { Link, useParams } from 'react-router-dom'
@@ -26,6 +27,10 @@ export default function ProductForm() {
             name: "price",
             type: "number",
             placeholder: "Preço",
+            validation: function(value: any){
+                return Number(value) > 0;
+            },
+            message: "Por favor informar um valor positivo"
         },
         imgUrl: {
             value: "",
@@ -37,13 +42,14 @@ export default function ProductForm() {
     })
 
     useEffect(() => {
+
         if(isEditing) {
             productService.findById(Number(params.productId))
             .then(response => {
                 setFormData(forms.updateAll(formData, response.data))
             });
         }
-    }, [formData, isEditing, params.productId])
+    }, [])
 
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         setFormData(forms.update(formData, event.target.name, event.target.value));
