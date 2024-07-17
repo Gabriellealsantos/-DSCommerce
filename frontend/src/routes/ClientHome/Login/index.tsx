@@ -55,7 +55,7 @@ export default function Login() {
     function handleTurnDirty(name: string) {
         setFormData(forms.dirtyAndValidate(formData, name));
     }
-    
+
     return (
         <main>
             <section id="login-section" className="dsc-container">
@@ -70,7 +70,7 @@ export default function Login() {
                                     onTrunDirty={handleTurnDirty}
                                     onChange={handleInputChange}
                                 />
-                                <div className="dsc-form-error"> </div>
+                                <div className="dsc-form-error">{formData.username.message} </div>
                             </div>
                             <div>
                                 <FormInput
