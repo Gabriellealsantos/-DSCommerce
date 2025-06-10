@@ -34,4 +34,8 @@ services:
       - key: CORS_ORIGINS
         value:
 
+      # CORS
+      - key: SPRING_JPA_DATABASE_PLATFORM
+        value:
+
 

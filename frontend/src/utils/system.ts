@@ -1,9 +1,9 @@
-export const BASE_URL = "http://localhost:8080";
+export const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const CART_KEY = "com.dev.dscommerce/Cart";
+export const CART_KEY = import.meta.env.VITE_CART_KEY;
 
-export const TOKEN_KEY = "com.dev.dscommerce/Token";
+export const TOKEN_KEY = import.meta.env.VITE_TOKEN_KEY;
 
-export const CLIENT_ID = "myclientid";
+export const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 
-export const CLIENT_SECRET = "myclientsecret";
+export const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
