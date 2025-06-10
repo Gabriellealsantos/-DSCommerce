@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 
 import com.devsuperior.dscommerce.entities.Order;
 import com.devsuperior.dscommerce.entities.OrderItem;
-import com.devsuperior.dscommerce.entities.OrderStatus;
+import com.devsuperior.dscommerce.entities.enums.OrderStatus;
 
 public class OrderDTO {
 

@@ -1,5 +1,7 @@
 package com.devsuperior.dscommerce.entities;
 
+import com.devsuperior.dscommerce.entities.enums.OrderStatus;
+
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;

@@ -24,9 +24,9 @@ public class WebSecurityConfig {
 
     @Bean
     JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-        tokenConverter.setSigningKey(jwtSecret);
-        return tokenConverter;
+        JwtAccessTokenConverter conv = new JwtAccessTokenConverter();
+        conv.setSigningKey(jwtSecret);
+        return conv;
     }
 
     @Bean
@@ -35,8 +35,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-            throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    AuthenticationManager authenticationManager(AuthenticationConfiguration ac) throws Exception {
+        return ac.getAuthenticationManager();
     }
 }
+

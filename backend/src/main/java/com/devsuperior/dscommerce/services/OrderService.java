@@ -10,7 +10,7 @@ import com.devsuperior.dscommerce.dto.OrderDTO;
 import com.devsuperior.dscommerce.dto.OrderItemDTO;
 import com.devsuperior.dscommerce.entities.Order;
 import com.devsuperior.dscommerce.entities.OrderItem;
-import com.devsuperior.dscommerce.entities.OrderStatus;
+import com.devsuperior.dscommerce.entities.enums.OrderStatus;
 import com.devsuperior.dscommerce.entities.Product;
 import com.devsuperior.dscommerce.entities.User;
 import com.devsuperior.dscommerce.repositories.OrderItemRepository;

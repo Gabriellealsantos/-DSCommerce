@@ -15,32 +15,28 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig
+        extends AuthorizationServerConfigurerAdapter {
 
     @Value("${security.oauth2.client.client-id}")
     private String clientId;
-
     @Value("${security.oauth2.client.client-secret}")
     private String clientSecret;
-
     @Value("${jwt.duration}")
     private Integer jwtDuration;
-
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
     @Autowired
     private JwtAccessTokenConverter accessTokenConverter;
-
     @Autowired
     private JwtTokenStore tokenStore;
-
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authManager;
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+    public void configure(AuthorizationServerSecurityConfigurer sec) {
+        sec.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()");
     }
 
     @Override
@@ -54,10 +50,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-
-        endpoints.authenticationManager(authenticationManager)
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+        endpoints.authenticationManager(authManager)
                 .tokenStore(tokenStore)
                 .accessTokenConverter(accessTokenConverter);
     }
 }
+

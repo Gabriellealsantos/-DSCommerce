@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: dscommerce-app
+    runtime: java
+    buildCommand: ./mvnw clean package
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: APP_PROFILE
+        value: prod
+
+      # Banco de dados
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://[DB_HOST]:5432/[DB_NAME]
+      - key: SPRING_DATASOURCE_USERNAME
+        value: [DB_USER]
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: [DB_PASSWORD]
+
+      # Segurança e OAuth
+      - key: CLIENT_ID
+        value: myclientid  # Altere para seu client real
+      - key: CLIENT_SECRET
+        value: myclientsecret  # Altere para seu secret real
+      - key: ACCESS_TOKEN_URI
+        value: https://your-render-url.onrender.com/oauth/token  # ATUALIZE COM SUA URL
+
+      # JWT
+      - key: JWT_SECRET
+        value: uma-chave-secreta-forte-aqui  # Gere uma chave forte!
+      - key: JWT_DURATION
+        value: 86400
+
+      # CORS
+      - key: CORS_ORIGINS
+        value: https://seu-frontend.com,https://outro-frontend.com  # URLs reais do seu front-end

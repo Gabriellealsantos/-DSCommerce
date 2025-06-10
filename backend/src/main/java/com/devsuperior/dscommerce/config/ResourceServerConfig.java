@@ -27,51 +27,40 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Value("${cors.origins}")
     private String corsOrigins;
-
     @Autowired
     private Environment env;
-
     @Autowired
     private JwtTokenStore tokenStore;
 
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.tokenStore(tokenStore);
+    public void configure(ResourceServerSecurityConfigurer res) {
+        res.tokenStore(tokenStore);
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-
-        // H2
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
         }
-
         http.authorizeRequests().anyRequest().permitAll();
-
         http.cors().configurationSource(corsConfigurationSource());
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-
-        String[] origins = corsOrigins.split(",");
-
-        CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOriginPatterns(Arrays.asList(origins));
-        corsConfig.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "PATCH"));
-        corsConfig.setAllowCredentials(true);
-        corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfig);
-        return source;
+        CorsConfiguration c = new CorsConfiguration();
+        c.setAllowedOriginPatterns(Arrays.asList(corsOrigins.split(",")));
+        c.setAllowedMethods(List.of("POST", "GET", "PUT", "DELETE", "PATCH"));
+        c.setAllowCredentials(true);
+        c.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
+        src.registerCorsConfiguration("/**", c);
+        return src;
     }
 
     @Bean
     FilterRegistrationBean<CorsFilter> corsFilter() {
-        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(
-                new CorsFilter(corsConfigurationSource()));
+        var bean = new FilterRegistrationBean<>(new CorsFilter(corsConfigurationSource()));
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
     }
