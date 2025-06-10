@@ -32,4 +32,6 @@ services:
 
       # CORS
       - key: CORS_ORIGINS
-        value: https://seu-front.vercel.app,http://localhost:5173
+        value:
+
+
