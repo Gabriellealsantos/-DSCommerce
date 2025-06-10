@@ -6,30 +6,30 @@ services:
     startCommand: java -jar target/*.jar
     envVars:
       - key: APP_PROFILE
-        value: prod
+        value:
 
       # Banco de dados
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://[DB_HOST]:5432/[DB_NAME]
+        value:
       - key: SPRING_DATASOURCE_USERNAME
-        value: [DB_USER]
+        value:
       - key: SPRING_DATASOURCE_PASSWORD
-        value: [DB_PASSWORD]
+        value:
 
       # Segurança e OAuth
       - key: CLIENT_ID
-        value: myclientid  # Altere para seu client real
+        value:
       - key: CLIENT_SECRET
-        value: myclientsecret  # Altere para seu secret real
+        value:
       - key: ACCESS_TOKEN_URI
-        value: https://your-render-url.onrender.com/oauth/token  # ATUALIZE COM SUA URL
+        value:
 
       # JWT
       - key: JWT_SECRET
-        value: uma-chave-secreta-forte-aqui  # Gere uma chave forte!
+        value:
       - key: JWT_DURATION
-        value: 86400
+        value:
 
       # CORS
       - key: CORS_ORIGINS
-        value: https://seu-frontend.com,https://outro-frontend.com  # URLs reais do seu front-end
+        value: https://seu-front.vercel.app,http://localhost:5173
