@@ -73,6 +73,13 @@ export default function Login() {
         <main>
             <section id="login-section" className="dsc-container">
                 <div className="dsc-login-form-container">
+
+                    <div className="dsc-login-hint">
+                        <strong>💡 Logins de exemplo:</strong><br />
+                        Admin → <code>admin@gmail.com</code> - <code>123456</code><br />
+                        Usuário → <code>usuario@gmail.com</code> - <code>123456</code>
+                    </div>
+
                     <form className="dsc-card dsc-form" onSubmit={handleSubmit}>
                         <h2>Login</h2>
                         <div className="dsc-form-controls-container">
